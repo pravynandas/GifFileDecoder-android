@@ -135,12 +135,7 @@ public class GifImageView extends androidx.appcompat.widget.AppCompatImageView {
 	private synchronized static void start(GifImageView view, File file) {
 		if (INFO) Log.i(TAG, "start");
 		
-		Thread thread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				backgroundThread();
-			}
-		});
+		Thread thread = new Thread(GifImageView::backgroundThread);
 
 		ThreadInfo info = new ThreadInfo();
 		info.view = new WeakReference<>(view);

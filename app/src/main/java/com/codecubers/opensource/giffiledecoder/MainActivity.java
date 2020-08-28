@@ -109,67 +109,44 @@ public class MainActivity extends Activity {
 		
 		imageView = findViewById(R.id.imageView);
 		
-		GifImageView.diagnosticsCallback = new GifImageView.DiagnosticsCallback() {
-			@Override
-			public void onDiagnostics(final String value) {
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						textView.setText("file size: " + (fileSize / 1024) + " k\n" + value);
-					}
-				});
-			}
-		};
+		GifImageView.diagnosticsCallback = value -> runOnUiThread(
+				() -> textView.setText("file size: " + (fileSize / 1024) + " k\n" + value));
 		
 		Button play = findViewById(R.id.play);
-		play.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				imageView.play();
-			}
-		});
+		play.setOnClickListener(v -> imageView.play());
 		
 		Button stop = findViewById(R.id.stop);
-		stop.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				imageView.stop();
-			}
-		});
+		stop.setOnClickListener(v -> imageView.stop());
 		
 		Button pause = findViewById(R.id.pause);
-		pause.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				imageView.pause();
-			}
-		});
+		pause.setOnClickListener(v -> imageView.pause());
 		
 		Button browser = findViewById(R.id.browser);
-		browser.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (file != null) {
-					Intent intent = new Intent(MainActivity.this, BrowserActivity.class);
-					intent.setData(Uri.fromFile(file));
-					startActivity(intent);
-				}
+		browser.setOnClickListener(v -> {
+			if (file != null) {
+				Intent intent = new Intent(MainActivity.this, BrowserActivity.class);
+				intent.setData(Uri.fromFile(file));
+				startActivity(intent);
 			}
 		});
 		
 		// Start with this sample
-		
-		openSample("test");
+
+		openSample(sampleNames[0]);
+//		openSample(sampleNames[1]);
+//		openSample(sampleNames[2]);
+//		openSample(sampleNames[3]);
+//		openSample(sampleNames[4]);
 	}
 
 	private void openSample(String name) {
 		File cacheDir = Utils.getDir(Utils.getCacheDir(this), "gif-cache");
 		file = new File(cacheDir, name + ".gif");
 		fileSize = file.length();
-		
+
 		imageView.setFile(file);
 		imageView.play();
-		
+
 		textView.setText("collecting data");
 	}
 	
