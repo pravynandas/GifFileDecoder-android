@@ -14,5 +14,8 @@ GifFileDecoder.java - decoder, converts gif files to in-memory images. Implement
 GifImageView.java - custom ImageView running decoder from a thread.
 
 ## Tasks completed
-### Port to android studio
-### code clean & upgrade to sdk version 29
+1. Port to android studio
+1. code clean 
+1. upgrade to sdk version 29
+1. Language level '7' to '8'
+1. Import GifDrawable class
